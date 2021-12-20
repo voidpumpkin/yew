@@ -1,5 +1,11 @@
 # Changelog
 
+## ✨ yew-router **0.16.1** *(2021-12-20)* Changelog
+
+### ⚡️ Features
+
+- Add HashRouter, basename and use gloo-history. [[@futursolo](https://github.com/futursolo), [#2239](https://github.com/yewstack/yew/pull/2239)]
+
 ## ✨ yew **0.19.0** *(2021-11-26)*
 
 #### Changelog
