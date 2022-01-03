@@ -37,9 +37,6 @@ jobs:
           # HEAD_REF: ${{ github.event.pull_request.head.ref }}
           BRANCH: master
 
-      - name: Setup ChromeDriver
-        uses: nanasess/setup-chromedriver@master
-
       - name: Setup Rust
         uses: actions-rs/toolchain@v1
         with:
@@ -66,29 +63,36 @@ jobs:
       - name: Start Server
         run: http -p 8080 &
 
-      - name: Setup Node
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12
+      - name: Setup ChromeDriver
+        uses: nanasess/setup-chromedriver@master
 
-      - name: npm Install
-        run: |
-          npm install
-          (cd webdriver-ts && npm install)
-          (cd webdriver-ts-results && npm install)
+      - run: chrome -v
 
-      - name: Build
-        run: |
-          npm run build-prod
-          (cd webdriver-ts && npm run build-prod)
+      - run: chromedriver -v
 
-      - name: Benchmark
-        run: npm run bench -- --headless
+      # - name: Setup Node
+      #   uses: actions/setup-node@v1
+      #   with:
+      #     node-version: 12
 
-      - name: Results
-        run: npm run results
+      # - name: npm Install
+      #   run: |
+      #     npm install
+      #     (cd webdriver-ts && npm install)
+      #     (cd webdriver-ts-results && npm install)
 
-      - name: Log results
-        run: |
-          msg=$(cd results_diff && cargo run)
-          echo "$msg"
+      # - name: Build
+      #   run: |
+      #     npm run build-prod
+      #     (cd webdriver-ts && npm run build-prod)
+
+      # - name: Benchmark
+      #   run: npm run bench -- --headless
+
+      # - name: Results
+      #   run: npm run results
+
+      # - name: Log results
+      #   run: |
+      #     msg=$(cd results_diff && cargo run)
+      #     echo "$msg"
