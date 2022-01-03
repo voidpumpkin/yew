@@ -32,6 +32,9 @@ members = [
   "examples/webgl",
   "examples/web_worker_fib",
 
+  # Benchmarks
+  "examples/*benchmark",
+
   # Tools
   "tools/changelog",
 ]
