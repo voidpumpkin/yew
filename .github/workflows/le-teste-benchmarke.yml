@@ -90,12 +90,12 @@ jobs:
       - name: build benchmark baseline app
         run: |
           cd benchmark-baseline-source/examples/${{ github.event.inputs.app }}
-          trunk build --release --public-url "/frameworks/keyed/yew"
+          trunk build --release
 
       - name: build benchmark target app
         run: |
           cd benchmark-target-source/examples/${{ github.event.inputs.app }}
-          trunk build --release --public-url "/frameworks/keyed/yew"
+          trunk build --release
 
       - name: move dist files
         run: |
