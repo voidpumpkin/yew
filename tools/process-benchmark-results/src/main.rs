@@ -20,8 +20,8 @@ fn main() -> Result<()> {
     let transformed_benchmarks: Vec<GhActionBenchmark> = input_json
         .into_iter()
         .map(|v| GhActionBenchmark {
-            name: format!("js-framework-benchmark {}", v["benchmark"]),
-            unit: "median ns".to_string(),
+            name: format!("{} {}", v["framework"], v["benchmark"]),
+            unit: String::default(),
             value: v["median"].to_string(),
         })
         .collect();

@@ -2,14 +2,6 @@ name: Benchmarkee
 
 on:
   workflow_dispatch:
-    inputs:
-      app:
-        description: "app to benchmark"
-        required: true
-        type: choice
-        options:
-          - yew_app_for_benchmark
-          #TODO: - yew_hooks_app_for_benchmark
 
 # permissions:
 #   # deployments permission to deploy GitHub pages website
@@ -24,17 +16,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          path: "./benchmark-target-source"
+          path: "./yew"
 
       - uses: actions/checkout@v2
         with:
           repository: krausest/js-framework-benchmark
           path: "./js-framework-benchmark"
-
-      - uses: actions/checkout@v2
-        with:
-          #repository: yewstack/yew
-          path: "./benchmark-baseline-source"
 
       - uses: actions-rs/toolchain@v1
         with:
@@ -47,60 +34,76 @@ jobs:
         with:
           version: "latest"
 
-      - name: save yew setup
+      - name: save yew-struct setup
         run: |
-          mkdir yew-setup
-          cp -r js-framework-benchmark/frameworks/keyed/yew/* yew-setup/
-          cd yew-setup/bundled-dist
+          mkdir yew-struct-setup
+          cp -r js-framework-benchmark/frameworks/keyed/yew/* yew-struct-setup/
+          cd yew-struct-setup/bundled-dist
           rm -rf ./*
 
-      - name: replace framework version
+      # - name: save yew-hooks setup
+      #   run: |
+      #     mkdir yew-hooks-setup
+      #     cp -r js-framework-benchmark/frameworks/keyed/yew-hooks/* yew-hooks-setup/
+      #     cd yew-hooks-setup/bundled-dist
+      #     rm -rf ./*
+
+      - name: replace framework version in yew
         run: |
           replace="  \"frameworkVersion\": \"\""
-          input=$(cat yew-setup/package.json)
+          input=$(cat yew-struct-setup/package.json)
           output=$(echo "$input" | sed -e "s@\"frameworkVersion\": .*\"@$replace@g")
           if [[ "$input" == "$output" ]]; then
             echo "ERROR: failed to configure framework version"
             exit 1
           fi
-          echo "$output" > yew-setup/package.json
+          echo "$output" > yew-struct-setup/package.json
           echo "$output"
 
-      - name: delete all keyed frameworks
+      # - name: replace framework version in yew-hooks
+      #   run: |
+      #     replace="  \"frameworkVersion\": \"\""
+      #     input=$(cat yew-hooks-setup/package.json)
+      #     output=$(echo "$input" | sed -e "s@\"frameworkVersion\": .*\"@$replace@g")
+      #     if [[ "$input" == "$output" ]]; then
+      #       echo "ERROR: failed to configure framework version"
+      #       exit 1
+      #     fi
+      #     echo "$output" > yew-hooks-setup/package.json
+      #     echo "$output"
+
+      - name: delete all frameworks
         run: |
           cd js-framework-benchmark/frameworks/keyed
           rm -rf ./*
-
-      - name: delete all non-keyed frameworks
-        run: |
-          cd js-framework-benchmark/frameworks/non-keyed
+          cd ../non-keyed
           rm -rf ./*
 
-      - name: create baseline and target framework folders
+      - name: create framework folders
         run: |
           cd js-framework-benchmark/frameworks/keyed
-          mkdir baseline
-          mkdir target
+          mkdir yew-struct
+        #  mkdir yew-hooks
 
       - name: copy necessary framework files
         run: |
-          cp -r yew-setup/* js-framework-benchmark/frameworks/keyed/baseline/
-          cp -r yew-setup/* js-framework-benchmark/frameworks/keyed/target/
+          cp -r yew-struct-setup/* js-framework-benchmark/frameworks/keyed/yew-struct/
+        #  cp -r yew-hooks-setup/* js-framework-benchmark/frameworks/keyed/yew-hooks/
 
-      - name: build benchmark baseline app
+      - name: build benchmark-struct app
         run: |
-          cd benchmark-baseline-source/examples/${{ github.event.inputs.app }}
+          cd yew/tools/benchmark-hooks
           trunk build --release
 
-      - name: build benchmark target app
+      - name: build benchmark-hooks app
         run: |
-          cd benchmark-target-source/examples/${{ github.event.inputs.app }}
+          cd yew/tools/benchmark-struct
           trunk build --release
 
       - name: move dist files
         run: |
-          mv benchmark-baseline-source/examples/${{ github.event.inputs.app }}/dist js-framework-benchmark/frameworks/keyed/baseline/
-          mv benchmark-target-source/examples/${{ github.event.inputs.app }}/dist js-framework-benchmark/frameworks/keyed/target/
+          mv yew/tools/benchmark-struct/dist js-framework-benchmark/frameworks/keyed/yew-struct/
+        #  mv yew/tools/benchmark-hooks/dist js-framework-benchmark/frameworks/keyed/yew-hooks/
 
       - name: Setup Node
         uses: actions/setup-node@v1
@@ -150,14 +153,14 @@ jobs:
 
       - name: Build process-benchmark-results
         run: |
-          cd benchmark-baseline-source
+          cd yew
           cargo build --release -p process-benchmark-results
 
       - name: transform results to be fit for display benchmark-action/github-action-benchmark@v1
         uses: mathiasvr/command-output@v1
         id: results
         with:
-          run: cat js-framework-benchmark/webdriver-ts/results/results.json | ./benchmark-baseline-source/target/release/process-benchmark-results
+          run: cat js-framework-benchmark/webdriver-ts/results/results.json | ./yew/target/release/process-benchmark-results
 
       - name: test
         run: echo "${{ steps.results.outputs.stdout }}"
