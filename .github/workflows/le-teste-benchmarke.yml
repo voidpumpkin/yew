@@ -99,8 +99,8 @@ jobs:
 
       - name: move dist files
         run: |
-          mv benchmark-baseline-source/examples/${{ github.event.inputs.app }}/dist/* js-framework-benchmark/frameworks/keyed/baseline/bundled-dist/
-          mv benchmark-target-source/examples/${{ github.event.inputs.app }}/dist/* js-framework-benchmark/frameworks/keyed/target/bundled-dist/
+          mv benchmark-baseline-source/examples/${{ github.event.inputs.app }}/dist js-framework-benchmark/frameworks/keyed/baseline/
+          mv benchmark-target-source/examples/${{ github.event.inputs.app }}/dist js-framework-benchmark/frameworks/keyed/target/
 
       - name: Setup Node
         uses: actions/setup-node@v1
