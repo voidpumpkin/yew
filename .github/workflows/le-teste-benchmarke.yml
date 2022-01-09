@@ -30,9 +30,26 @@ jobs:
           override: true
           profile: minimal
 
-      - uses: jetli/trunk-action@v0.1.0
+      - uses: jetli/wasm-pack-action@v0.3.0
         with:
           version: "latest"
+
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+
+      - uses: Swatinem/rust-cache@v1
+        with:
+          working-directory: yew
+
+      - uses: actions/cache@v2
+          with:
+            path: ~/.npm
+            key: ${{ runner.os }}-benchmark-${{ hashFiles('js-framework-benchmark/package-lock.json') }}-${{ hashFiles('js-framework-benchmark/webdriver-ts/package-lock.json') }}
+            restore-keys: |
+              ${{ runner.os }}-benchmark-
+              ${{ runner.os }}
 
       - name: save yew-struct setup
         run: |
@@ -90,25 +107,23 @@ jobs:
           cp -r yew-struct-setup/* js-framework-benchmark/frameworks/keyed/yew-struct/
         #  cp -r yew-hooks-setup/* js-framework-benchmark/frameworks/keyed/yew-hooks/
 
+      #Fix this
       - name: build benchmark-struct app
         run: |
-          cd yew/tools/benchmark-hooks
-          trunk build --release
+          cd yew/tools/benchmark-struct
+          npm ci
+          npm run build-prod-without-tools-install
 
       - name: build benchmark-hooks app
         run: |
-          cd yew/tools/benchmark-struct
-          trunk build --release
+          cd yew/tools/benchmark-hooks
+          npm ci
+          npm run build-prod-without-tools-install
 
       - name: move dist files
         run: |
-          mv yew/tools/benchmark-struct/dist js-framework-benchmark/frameworks/keyed/yew-struct/
-        #  mv yew/tools/benchmark-hooks/dist js-framework-benchmark/frameworks/keyed/yew-hooks/
-
-      - name: Setup Node
-        uses: actions/setup-node@v1
-        with:
-          node-version: 16
+          mv yew/tools/benchmark-struct/bundled-dist js-framework-benchmark/frameworks/keyed/yew-struct/
+        #  mv yew/tools/benchmark-hooks/bundled-dist js-framework-benchmark/frameworks/keyed/yew-hooks/
 
       - name: js-framework-benchmark npm ci
         run: |
