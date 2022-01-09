@@ -2,7 +2,9 @@ name: Benchmark Master
 
 on:
   workflow_dispatch:
-  push: [master]
+  push:
+    branches:
+      - master
 
 jobs:
   build:
