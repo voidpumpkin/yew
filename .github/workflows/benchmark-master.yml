@@ -20,24 +20,32 @@ jobs:
         with:
           path: "./yew"
 
-      - uses: ./yew/.github/workflows/benchmark-run
-        id: benchmark
+      # - uses: ./yew/.github/workflows/benchmark-run
+      #   id: benchmark
+
+      # - run: |
+      #     cd yew
+      #     touch results.json
+      #     echo "${{ steps.benchmark.outputs.results }}" >> results.json
 
       - run: |
           cd yew
           touch results.json
-          echo "${{ steps.benchmark.outputs.results }}" >> results.json
+          echo "[{"name":"\"yew-struct-keyed\" \"01_run1k\"","unit":"","value":"240.567"},{"name":"\"yew-struct-keyed\" \"02_replace1k\"","unit":"","value":"244.7755"},{"name":"\"yew-struct-keyed\" \"03_update10th1k_x16\"","unit":"","value":"324.59000000000003"},{"name":"\"yew-struct-keyed\" \"04_select1k\"","unit":"","value":"63.2595"},{"name":"\"yew-struct-keyed\" \"05_swap1k\"","unit":"","value":"91.6005"},{"name":"\"yew-struct-keyed\" \"06_remove-one-1k\"","unit":"","value":"31.6335"},{"name":"\"yew-struct-keyed\" \"07_create10k\"","unit":"","value":"2719.76"},{"name":"\"yew-struct-keyed\" \"08_create1k-after1k_x2\"","unit":"","value":"532.251"},{"name":"\"yew-struct-keyed\" \"09_clear1k_x8\"","unit":"","value":"242.2515"},{"name":"\"yew-struct-keyed\" \"21_ready-memory\"","unit":"","value":"0.9196929931640624"},{"name":"\"yew-struct-keyed\" \"22_run-memory\"","unit":"","value":"1.464252471923828"},{"name":"\"yew-struct-keyed\" \"23_update5-memory\"","unit":"","value":"1.4720001220703125"},{"name":"\"yew-struct-keyed\" \"24_run5-memory\"","unit":"","value":"1.4948806762695312"},{"name":"\"yew-struct-keyed\" \"25_run-clear-memory\"","unit":"","value":"1.1979484558105469"},{"name":"\"yew-struct-keyed\" \"31_startup-ci\"","unit":"","value":"1732.0659999999998"},{"name":"\"yew-struct-keyed\" \"32_startup-bt\"","unit":"","value":"33.929999999999986"},{"name":"\"yew-struct-keyed\" \"34_startup-totalbytes\"","unit":"","value":"363.7998046875"}]" >> results.json
 
-      # gh-pages branch is updated and pushed automatically with extracted benchmark data
-      - name: Store benchmark result
-        uses: benchmark-action/github-action-benchmark@v1
-        with:
-          working-directory: ./yew
-          name: "Yew master branch benchmarks by commits"
-          tool: "customSmallerIsBetter"
-          output-file-path: results.json
-          gh-pages-branch: "gh-pages"
-          # Access token to deploy GitHub Pages branch
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          # Push and deploy GitHub pages branch automatically
-          auto-push: true
+  store:
+    needs: benchmark
+    working-directory: ./yew
+
+    # gh-pages branch is updated and pushed automatically with extracted benchmark data
+    - name: Store benchmark result
+      uses: benchmark-action/github-action-benchmark@v1
+      with:
+        name: "Yew master branch benchmarks by commits"
+        tool: "customSmallerIsBetter"
+        output-file-path: results.json
+        gh-pages-branch: "gh-pages"
+        # Access token to deploy GitHub Pages branch
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        # Push and deploy GitHub pages branch automatically
+        auto-push: true
