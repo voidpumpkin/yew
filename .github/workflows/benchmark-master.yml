@@ -61,5 +61,4 @@ jobs:
 
       - name: Store benchmark data
         run: |
-          cd ./cache
-          mv -f ../results.json results.json
+          cp -rf results.json ./cache/results.json
