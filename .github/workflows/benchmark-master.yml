@@ -17,9 +17,9 @@ jobs:
 
       - run: pwd
 
-      - run: ls ./yew/workflows/benchmark-run
+      - run: ls ./yew/.github/workflows/benchmark-run
 
-      - uses: ./yew/workflows/benchmark-run
+      - uses: ./yew/.github/workflows/benchmark-run
         id: benchmark
 
       - run: echo ${{ steps.benchmark.outputs.results }}
