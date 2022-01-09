@@ -22,8 +22,8 @@ jobs:
         with:
           path: "./yew"
 
-    - uses: ./yew/.github/workflows/benchmark-run
-      id: benchmark
+      - uses: ./yew/.github/workflows/benchmark-run
+        id: benchmark
 
   store:
     runs-on: ubuntu-latest
@@ -34,7 +34,7 @@ jobs:
 
       - run: |
           touch results.json
-          echo "${{ needs.benchmark.outputs.results }}" >> results.json
+          echo '${{ needs.benchmark.outputs.results }}' >> results.json
 
       # - run: |
       #     touch results.json
