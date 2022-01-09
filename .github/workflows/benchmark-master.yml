@@ -1,4 +1,4 @@
-name: Run Benchmark
+name: Benchmark Master
 
 on:
   workflow_dispatch:
