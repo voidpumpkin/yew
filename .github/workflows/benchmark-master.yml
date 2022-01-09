@@ -26,7 +26,7 @@ jobs:
       - run: |
           cd yew
           touch results.json
-          echo ${{ steps.benchmark.outputs.results }} >> results.json
+          echo "${{ steps.benchmark.outputs.results }}" >> results.json
 
       # gh-pages branch is updated and pushed automatically with extracted benchmark data
       - name: Store benchmark result
