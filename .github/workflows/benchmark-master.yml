@@ -8,7 +8,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/benchmark-run@v1
+      # - uses: yewstack/benchmark-run@v1
+      - uses: voidpumpkin/benchmark-run@v1
         id: benchmark
 
       - run: echo ${{ steps.benchmark.outputs.results }}
