@@ -12,7 +12,7 @@ jobs:
         with:
           path: "./yew"
 
-      - uses: ./yew/workflows/benchmark-run.yml
+      - uses: ./yew/workflows/benchmark-run
         id: benchmark
 
       - run: echo ${{ steps.benchmark.outputs.results }}
