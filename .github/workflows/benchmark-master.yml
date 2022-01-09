@@ -1,5 +1,4 @@
 name: Benchmark Master
-description: Benchmark and save results on github pages
 
 on:
   push:
@@ -13,7 +12,7 @@ permissions:
   contents: write
 
 jobs:
-  build:
+  benchmark:
     runs-on: ubuntu-latest
 
     steps:
