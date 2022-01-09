@@ -10,10 +10,6 @@ runs:
   steps:
     - uses: actions/checkout@v2
       with:
-        path: "./yew"
-
-    - uses: actions/checkout@v2
-      with:
         repository: krausest/js-framework-benchmark
         path: "./js-framework-benchmark"
 

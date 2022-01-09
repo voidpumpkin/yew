@@ -8,7 +8,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: ./benchmark-run
+      - uses: actions/checkout@v2
+        with:
+          path: "./yew"
+
+      - uses: ./yew/workflows/benchmark-run.yml
         id: benchmark
 
       - run: echo ${{ steps.benchmark.outputs.results }}
