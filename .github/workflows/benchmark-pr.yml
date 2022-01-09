@@ -47,4 +47,5 @@ jobs:
           # Where the previous data file is stored
           external-data-json-path: ./cache/results.json
           alert-threshold: "1%"
+          comment-on-alert: true
           alert-comment-cc-users: "@yewstack/yew"
