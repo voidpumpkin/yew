@@ -44,12 +44,12 @@ jobs:
           working-directory: yew
 
       - uses: actions/cache@v2
-          with:
-            path: ~/.npm
-            key: ${{ runner.os }}-benchmark-${{ hashFiles('js-framework-benchmark/package-lock.json') }}-${{ hashFiles('js-framework-benchmark/webdriver-ts/package-lock.json') }}
-            restore-keys: |
-              ${{ runner.os }}-benchmark-
-              ${{ runner.os }}
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-benchmark-${{ hashFiles('js-framework-benchmark/package-lock.json') }}-${{ hashFiles('js-framework-benchmark/webdriver-ts/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-benchmark-
+            ${{ runner.os }}
 
       - name: save yew-struct setup
         run: |
