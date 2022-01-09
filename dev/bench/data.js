@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1641749995415,
+  "lastUpdate": 1641751032891,
   "repoUrl": "https://github.com/voidpumpkin/yew",
   "entries": {
     "Yew master branch benchmarks by commits": [
@@ -2178,6 +2178,115 @@ window.BENCHMARK_DATA = {
           {
             "name": "yew-struct-keyed 32_startup-bt",
             "value": "30.671999999999997",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 34_startup-totalbytes",
+            "value": "363.7998046875",
+            "unit": ""
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32368314+voidpumpkin@users.noreply.github.com",
+            "name": "voidpumpkin",
+            "username": "voidpumpkin"
+          },
+          "committer": {
+            "email": "32368314+voidpumpkin@users.noreply.github.com",
+            "name": "voidpumpkin",
+            "username": "voidpumpkin"
+          },
+          "distinct": true,
+          "id": "7bf30a5b7ba349456fe8eccd3f6ff5c6a0825273",
+          "message": "ttt\n\nremove url\n\ndist\n\ndo a lot\n\ntry again\n\nfix file\n\ncomposing\n\ntry again\n\nvoid\n\npath\n\ntry again\n\ndis way\n\npwd\n\nmaster\n\ndot\n\nnice\n\npages\n\nno desc\n\nsafeguard echo\n\n?\n\ncommunicate\n\nepic\n\necho\n\nqute me bb\n\nrun proper\n\nrun proper again\n\nhere we go again\n\nuse test data\n\nmess with data\n\nupdate\n\nup\n\nforce\n\nagain\n\ncp\n\nmkdir\n\nwill fail?\n\noff\n\ncomment\n\ndammit it\n\nsmol\n\nartifacts?\n\npoop\n\nlow\n\ngogogog\n\nlets try\n\nkosmosas\n\nMORE\n\nlets see\n\none file\n\nfix checkout\n\nproper",
+          "timestamp": "2022-01-09T19:51:10+02:00",
+          "tree_id": "18bf48b7ae39d10e6fe0a3305e8d26c8b70a3c04",
+          "url": "https://github.com/voidpumpkin/yew/commit/7bf30a5b7ba349456fe8eccd3f6ff5c6a0825273"
+        },
+        "date": 1641751031513,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "yew-struct-keyed 01_run1k",
+            "value": "216.994",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 02_replace1k",
+            "value": "206.218",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 03_update10th1k_x16",
+            "value": "389.9015",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 04_select1k",
+            "value": "68.9615",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 05_swap1k",
+            "value": "97.618",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 06_remove-one-1k",
+            "value": "30.5485",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 07_create10k",
+            "value": "2194.9705000000004",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 08_create1k-after1k_x2",
+            "value": "445.1365",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 09_clear1k_x8",
+            "value": "208.2235",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 21_ready-memory",
+            "value": "0.9196929931640624",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 22_run-memory",
+            "value": "1.4389190673828125",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 23_update5-memory",
+            "value": "1.4645919799804688",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 24_run5-memory",
+            "value": "1.4776153564453125",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 25_run-clear-memory",
+            "value": "1.1983489990234375",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 31_startup-ci",
+            "value": "1733.302",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 32_startup-bt",
+            "value": "34.493999999999986",
             "unit": ""
           },
           {
