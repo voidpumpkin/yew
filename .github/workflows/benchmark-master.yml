@@ -59,6 +59,7 @@ jobs:
           # Push and deploy GitHub pages branch automatically
           auto-push: true
 
-      - name: Store benchmark data
+      - name: Store benchmark data for Pr checking
         run: |
+          mkdir -p cache
           cp -rf results.json ./cache/results.json
