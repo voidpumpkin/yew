@@ -1,0 +1,172 @@
+name: Run Benchmark
+
+outputs:
+  results:
+    description: "Random number"
+    value: ${{ steps.results.outputs.stdout }}
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v2
+      with:
+        path: "./yew"
+
+    - uses: actions/checkout@v2
+      with:
+        repository: krausest/js-framework-benchmark
+        path: "./js-framework-benchmark"
+
+    - uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        target: wasm32-unknown-unknown
+        override: true
+        profile: minimal
+
+    - uses: jetli/wasm-pack-action@v0.3.0
+      with:
+        version: "latest"
+
+    - name: Setup Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: 16
+
+    - uses: Swatinem/rust-cache@v1
+      with:
+        working-directory: yew
+
+    - uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-benchmark-${{ hashFiles('js-framework-benchmark/package-lock.json') }}-${{ hashFiles('js-framework-benchmark/webdriver-ts/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-benchmark-
+          ${{ runner.os }}
+
+    - name: save yew-struct setup
+      run: |
+        mkdir yew-struct-setup
+        cp -r js-framework-benchmark/frameworks/keyed/yew/* yew-struct-setup/
+        cd yew-struct-setup/bundled-dist
+        rm -rf ./*
+
+    # - name: save yew-hooks setup
+    #   run: |
+    #     mkdir yew-hooks-setup
+    #     cp -r js-framework-benchmark/frameworks/keyed/yew-hooks/* yew-hooks-setup/
+    #     cd yew-hooks-setup/bundled-dist
+    #     rm -rf ./*
+
+    - name: replace framework version in yew
+      run: |
+        replace="  \"frameworkVersion\": \"\""
+        input=$(cat yew-struct-setup/package.json)
+        output=$(echo "$input" | sed -e "s@\"frameworkVersion\": .*\"@$replace@g")
+        if [[ "$input" == "$output" ]]; then
+          echo "ERROR: failed to configure framework version"
+          exit 1
+        fi
+        echo "$output" > yew-struct-setup/package.json
+        echo "$output"
+
+    # - name: replace framework version in yew-hooks
+    #   run: |
+    #     replace="  \"frameworkVersion\": \"\""
+    #     input=$(cat yew-hooks-setup/package.json)
+    #     output=$(echo "$input" | sed -e "s@\"frameworkVersion\": .*\"@$replace@g")
+    #     if [[ "$input" == "$output" ]]; then
+    #       echo "ERROR: failed to configure framework version"
+    #       exit 1
+    #     fi
+    #     echo "$output" > yew-hooks-setup/package.json
+    #     echo "$output"
+
+    - name: delete all frameworks
+      run: |
+        cd js-framework-benchmark/frameworks/keyed
+        rm -rf ./*
+        cd ../non-keyed
+        rm -rf ./*
+
+    - name: create framework folders
+      run: |
+        cd js-framework-benchmark/frameworks/keyed
+        mkdir yew-struct
+      #  mkdir yew-hooks
+
+    - name: copy necessary framework files
+      run: |
+        cp -r yew-struct-setup/* js-framework-benchmark/frameworks/keyed/yew-struct/
+      #  cp -r yew-hooks-setup/* js-framework-benchmark/frameworks/keyed/yew-hooks/
+
+    #Fix this
+    - name: build benchmark-struct app
+      run: |
+        cd yew/tools/benchmark-struct
+        npm ci
+        npm run build-prod-without-tools-install
+
+    - name: build benchmark-hooks app
+      run: |
+        cd yew/tools/benchmark-hooks
+        npm ci
+        npm run build-prod-without-tools-install
+
+    - name: move dist files
+      run: |
+        mv yew/tools/benchmark-struct/bundled-dist js-framework-benchmark/frameworks/keyed/yew-struct/
+      #  mv yew/tools/benchmark-hooks/bundled-dist js-framework-benchmark/frameworks/keyed/yew-hooks/
+
+    - name: js-framework-benchmark npm ci
+      run: |
+        cd js-framework-benchmark
+        npm ci
+
+    - name: js-framework-benchmark npm start
+      run: |
+        cd js-framework-benchmark
+        npm start &
+
+    - name: js-framework-benchmark/webdriver-ts npm ci
+      run: |
+        cd js-framework-benchmark/webdriver-ts
+        npm ci
+        npm install chromedriver --chromedriver-force-download
+
+    - name: js-framework-benchmark/webdriver-ts npm run compile
+      run: |
+        cd js-framework-benchmark/webdriver-ts
+        npm run compile
+
+    - name: js-framework-benchmark npm run build-prod
+      run: |
+        cd js-framework-benchmark
+        npm run build-prod
+
+    - name: js-framework-benchmark/webdriver-ts npm run bench
+      run: |
+        cd js-framework-benchmark/webdriver-ts
+        npm run bench -- --headless
+
+    - name: transform results into json
+      run: |
+        cd js-framework-benchmark/webdriver-ts/results
+        touch temp.txt
+        echo "[" >> temp.txt
+        for filename in *.json; do cat ${filename} >> temp.txt; echo "," >> temp.txt; done
+        sed -i '$ s/.$//' temp.txt #remove trailing comma
+        echo "]" >> temp.txt
+        mv temp.txt results.json
+
+    - name: Build process-benchmark-results
+      run: |
+        cd yew
+        cargo build --release -p process-benchmark-results
+
+    - name: transform results to be fit for display benchmark-action/github-action-benchmark@v1
+      uses: mathiasvr/command-output@v1
+      id: results
+      with:
+        run: cat js-framework-benchmark/webdriver-ts/results/results.json | ./yew/target/release/process-benchmark-results
