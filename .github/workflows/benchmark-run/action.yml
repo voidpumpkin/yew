@@ -42,13 +42,14 @@ runs:
           ${{ runner.os }}
 
     - name: save yew-struct setup
+      shell: bash
       run: |
         mkdir yew-struct-setup
         cp -r js-framework-benchmark/frameworks/keyed/yew/* yew-struct-setup/
         cd yew-struct-setup/bundled-dist
         rm -rf ./*
-
     # - name: save yew-hooks setup
+    #   shell: bash
     #   run: |
     #     mkdir yew-hooks-setup
     #     cp -r js-framework-benchmark/frameworks/keyed/yew-hooks/* yew-hooks-setup/
@@ -56,6 +57,7 @@ runs:
     #     rm -rf ./*
 
     - name: replace framework version in yew
+      shell: bash
       run: |
         replace="  \"frameworkVersion\": \"\""
         input=$(cat yew-struct-setup/package.json)
@@ -68,6 +70,7 @@ runs:
         echo "$output"
 
     # - name: replace framework version in yew-hooks
+    #   shell: bash
     #   run: |
     #     replace="  \"frameworkVersion\": \"\""
     #     input=$(cat yew-hooks-setup/package.json)
@@ -80,6 +83,7 @@ runs:
     #     echo "$output"
 
     - name: delete all frameworks
+      shell: bash
       run: |
         cd js-framework-benchmark/frameworks/keyed
         rm -rf ./*
@@ -87,66 +91,78 @@ runs:
         rm -rf ./*
 
     - name: create framework folders
+      shell: bash
       run: |
         cd js-framework-benchmark/frameworks/keyed
         mkdir yew-struct
       #  mkdir yew-hooks
 
     - name: copy necessary framework files
+      shell: bash
       run: |
         cp -r yew-struct-setup/* js-framework-benchmark/frameworks/keyed/yew-struct/
       #  cp -r yew-hooks-setup/* js-framework-benchmark/frameworks/keyed/yew-hooks/
 
     #Fix this
     - name: build benchmark-struct app
+      shell: bash
       run: |
         cd yew/tools/benchmark-struct
         npm ci
         npm run build-prod-without-tools-install
 
     - name: build benchmark-hooks app
+      shell: bash
       run: |
         cd yew/tools/benchmark-hooks
         npm ci
         npm run build-prod-without-tools-install
 
     - name: move dist files
+      shell: bash
       run: |
         mv yew/tools/benchmark-struct/bundled-dist js-framework-benchmark/frameworks/keyed/yew-struct/
       #  mv yew/tools/benchmark-hooks/bundled-dist js-framework-benchmark/frameworks/keyed/yew-hooks/
 
     - name: js-framework-benchmark npm ci
+      shell: bash
       run: |
         cd js-framework-benchmark
         npm ci
 
     - name: js-framework-benchmark npm start
+      shell: bash
       run: |
         cd js-framework-benchmark
         npm start &
 
     - name: js-framework-benchmark/webdriver-ts npm ci
+      shell: bash
       run: |
         cd js-framework-benchmark/webdriver-ts
         npm ci
         npm install chromedriver --chromedriver-force-download
 
     - name: js-framework-benchmark/webdriver-ts npm run compile
+      shell: bash
       run: |
         cd js-framework-benchmark/webdriver-ts
         npm run compile
 
     - name: js-framework-benchmark npm run build-prod
+      shell: bash
       run: |
         cd js-framework-benchmark
         npm run build-prod
 
     - name: js-framework-benchmark/webdriver-ts npm run bench
+      shell: bash
       run: |
         cd js-framework-benchmark/webdriver-ts
         npm run bench -- --headless
 
     - name: transform results into json
+      shell: bash
       run: |
         cd js-framework-benchmark/webdriver-ts/results
         touch temp.txt
@@ -157,6 +173,7 @@ runs:
         mv temp.txt results.json
 
     - name: Build process-benchmark-results
+      shell: bash
       run: |
         cd yew
         cargo build --release -p process-benchmark-results

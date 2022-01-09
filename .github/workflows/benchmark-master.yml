@@ -15,10 +15,6 @@ jobs:
         with:
           path: "./yew"
 
-      - run: pwd
-
-      - run: ls ./yew/.github/workflows/benchmark-run
-
       - uses: ./yew/.github/workflows/benchmark-run
         id: benchmark
 
