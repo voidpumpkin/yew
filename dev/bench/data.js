@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1641847740144,
+  "lastUpdate": 1641850478395,
   "repoUrl": "https://github.com/voidpumpkin/yew",
   "entries": {
     "Yew master branch benchmarks by commits": [
@@ -3809,6 +3809,115 @@ window.BENCHMARK_DATA = {
           {
             "name": "yew-struct-keyed 32_startup-bt",
             "value": "41.15199999999999",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 34_startup-totalbytes",
+            "value": "363.7998046875",
+            "unit": ""
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "3677930fc4d5220affc6297593730598977742a5",
+          "message": "Update gloo requirement from 0.4 to 0.6 (#2337)\n\n* Update gloo requirement from 0.4 to 0.6\r\n\r\nUpdates the requirements on [gloo](https://github.com/rustwasm/gloo) to permit the latest version.\r\n- [Release notes](https://github.com/rustwasm/gloo/releases)\r\n- [Commits](https://github.com/rustwasm/gloo/commits)\r\n\r\n---\r\nupdated-dependencies:\r\n- dependency-name: gloo\r\n  dependency-type: direct:production\r\n...\r\n\r\nSigned-off-by: dependabot[bot] <support@github.com>\r\n\r\n* fix ci\r\n\r\nCo-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>\r\nCo-authored-by: voidpumpkin <32368314+voidpumpkin@users.noreply.github.com>",
+          "timestamp": "2022-01-10T23:17:13+02:00",
+          "tree_id": "637c505b17615afd94636d29cbb7c11127a2998b",
+          "url": "https://github.com/voidpumpkin/yew/commit/3677930fc4d5220affc6297593730598977742a5"
+        },
+        "date": 1641850476911,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "yew-struct-keyed 01_run1k",
+            "value": "185.0245",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 02_replace1k",
+            "value": "183.698",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 03_update10th1k_x16",
+            "value": "350.97249999999997",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 04_select1k",
+            "value": "71.012",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 05_swap1k",
+            "value": "94.179",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 06_remove-one-1k",
+            "value": "30.02",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 07_create10k",
+            "value": "2121.471",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 08_create1k-after1k_x2",
+            "value": "410.1235",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 09_clear1k_x8",
+            "value": "189.8255",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 21_ready-memory",
+            "value": "1.2032737731933594",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 22_run-memory",
+            "value": "1.4166336059570312",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 23_update5-memory",
+            "value": "1.4295806884765625",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 24_run5-memory",
+            "value": "1.477447509765625",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 25_run-clear-memory",
+            "value": "1.1981048583984375",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 31_startup-ci",
+            "value": "1782.5722499999997",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 32_startup-bt",
+            "value": "29.68399999999999",
             "unit": ""
           },
           {
