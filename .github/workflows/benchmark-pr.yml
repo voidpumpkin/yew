@@ -26,9 +26,9 @@ jobs:
           # Access token to deploy GitHub Pages branch
           # github-token: ${{ secrets.GITHUB_TOKEN }}
           # Push and deploy GitHub pages branch automatically
-          comment-always: true
+          # comment-always: true
           alert-threshold: "150%"
-          comment-on-alert: true
+          # comment-on-alert: true
           alert-comment-cc-users: "@yewstack/yew"
           # Don't push to gh-pages if its a pull request
           auto-push: ${{ github.event_name != 'pull_request' }}
