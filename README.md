@@ -1,7 +1,7 @@
 <div align="center">
   <img src="https://yew.rs/img/logo.png" width="150" />
 
-  <h1>Yew</h1>
+  <h1>Yew-mhm</h1>
 
   <p>
     <strong>Rust / Wasm client web app framework</strong>
