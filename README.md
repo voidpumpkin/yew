@@ -4,7 +4,7 @@
   <h1>Yew</h1>
 
   <p>
-    <strong>Rust / Wasm client web app framework</strong>
+    <strong>Rust / Wasm client web app framework - Useless changes - helping test things</strong>
   </p>
 
   <p>
