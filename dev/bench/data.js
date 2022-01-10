@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1641850478395,
+  "lastUpdate": 1641850540617,
   "repoUrl": "https://github.com/voidpumpkin/yew",
   "entries": {
     "Yew master branch benchmarks by commits": [
@@ -3918,6 +3918,115 @@ window.BENCHMARK_DATA = {
           {
             "name": "yew-struct-keyed 32_startup-bt",
             "value": "29.68399999999999",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 34_startup-totalbytes",
+            "value": "363.7998046875",
+            "unit": ""
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32368314+voidpumpkin@users.noreply.github.com",
+            "name": "voidpumpkin",
+            "username": "voidpumpkin"
+          },
+          "committer": {
+            "email": "32368314+voidpumpkin@users.noreply.github.com",
+            "name": "voidpumpkin",
+            "username": "voidpumpkin"
+          },
+          "distinct": true,
+          "id": "c9a2a1671416164bfeded5401143a54360b609a0",
+          "message": "up alert treshold for benchmarks",
+          "timestamp": "2022-01-10T23:30:13+02:00",
+          "tree_id": "356092d4fdc88d523000674897c2ad44044e8e1e",
+          "url": "https://github.com/voidpumpkin/yew/commit/c9a2a1671416164bfeded5401143a54360b609a0"
+        },
+        "date": 1641850538406,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "yew-struct-keyed 01_run1k",
+            "value": "173.29649999999998",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 02_replace1k",
+            "value": "198.3405",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 03_update10th1k_x16",
+            "value": "424.9175",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 04_select1k",
+            "value": "84.41550000000001",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 05_swap1k",
+            "value": "101.0095",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 06_remove-one-1k",
+            "value": "32.1995",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 07_create10k",
+            "value": "2123.498",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 08_create1k-after1k_x2",
+            "value": "414.8955",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 09_clear1k_x8",
+            "value": "201.8705",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 21_ready-memory",
+            "value": "0.9196929931640624",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 22_run-memory",
+            "value": "1.4553070068359375",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 23_update5-memory",
+            "value": "1.4559707641601562",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 24_run5-memory",
+            "value": "1.4778556823730469",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 25_run-clear-memory",
+            "value": "1.1976089477539062",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 31_startup-ci",
+            "value": "1844.83275",
+            "unit": ""
+          },
+          {
+            "name": "yew-struct-keyed 32_startup-bt",
+            "value": "30.73999999999999",
             "unit": ""
           },
           {
