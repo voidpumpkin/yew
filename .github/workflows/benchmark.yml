@@ -15,7 +15,7 @@ permissions:
 jobs:
   results:
     runs-on: ubuntu-latest
-    needs: benchmark
+    # needs: benchmark
 
     steps:
       # - uses: actions/checkout@v2
@@ -45,13 +45,13 @@ jobs:
       - run: echo "${{ contains(github.event.pull_request.labels.*.name, 'performance') }}"
       - run: echo "${{ contains(github.event.pull_request_target.labels.*.name, 'performance') }}"
 
-  benchmark:
-    runs-on: ubuntu-latest
-    outputs:
-      results: ${{ steps.results.outputs.stdout }}
+  # benchmark:
+  #   runs-on: ubuntu-latest
+  #   outputs:
+  #     results: ${{ steps.results.outputs.stdout }}
 
-    steps:
-      - run: echo ?????
+  #   steps:
+  #     - run: echo ?????
       
       # - uses: actions/checkout@v2
       #   with:
