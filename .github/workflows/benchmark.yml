@@ -17,8 +17,4 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - run: echo "${{ github.event.pull_request }}"
-      - run: echo "${{ github.event.pull_request.labels }}"
-      - run: echo "${{ contains(github.event.pull_request.labels.*.name, 'performance') }}"
-      - run: echo "${{ contains(github.event.pull_request.labels.*.name, 'performance') }}"
-      - run: echo "${{ contains(github.event.pull_request_target.labels.*.name, 'performance') }}"
+      - run: echo hi
