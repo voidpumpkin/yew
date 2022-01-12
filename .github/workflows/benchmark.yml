@@ -9,7 +9,7 @@ on:
 permissions:
   # deployments permission to deploy GitHub pages website
   deployments: write
-  # contents permission to update benchmark contents in gh-pages branch
+  # contents permission to aa update benchmark contents in gh-pages branch
   contents: write
 
 jobs:
