@@ -22,7 +22,7 @@ warp = "0.3"
 num_cpus = "1.13"
 tokio-util = { version = "0.7", features = ["rt"] }
 once_cell = "1.5"
-clap = { version = "3.1.7", features = ["derive"] }
+clap = { version = "4.0.26", features = ["derive"] }
 
 [features]
 hydration = ["yew/hydration"]
